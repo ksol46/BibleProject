@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.nav_custom {
+  font-size: 23px;
+  background-color: #d7d3ff;
+  height: 80px;
+}
+
+.nav_color {
+  background-color: #d7d3ff;
+}
+
+.nav_tap:hover {
+  text-decoration: underline;
+  text-underline-position: under;
+  background-color: #d7d3ff;
+}
+
+section {
+  margin-bottom: 60px;
+}
+
+.section_content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.book_select {
+  width: 50%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  display: flex;
+}
+
+.book_title {
+  font-size: 30px;
+  text-align: center;
+  display: flex;
+}
+
+span {
+  color: #424242;
+}
+
+.dropdown_custom {
+  color: #424242;
+}
+
+footer {
+  background-color: #d7d3ff;
+  height: 55px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

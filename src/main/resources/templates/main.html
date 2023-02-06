@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Bible Project</title>
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <div layout:fragment="content">
+    <section>
+      <a>
+        <img
+          class="my-auto mt-4"
+          src="/images/MainImage.jpg"
+          alt="BIBLELOVER_MainImage"
+          width="100%"
+          height="605"
+        />
+      </a>
+    </section>
+    </div>
+</body>
+</html>

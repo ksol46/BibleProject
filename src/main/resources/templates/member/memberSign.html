@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Bible Project</title>
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	   //회원가입이 실패했을때
+	$(document).ready(function(){
+    	var errorMessage = [[${errorMessage}]];
+    	if(errorMessage != null){
+        	alert(errorMessage);
+    	}
+	});
+	</script>
+</th:block>
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div layout:fragment="content">
+		<section>
+			<form role="form" action="/members/sign" method="post"
+				th:object="${memberFormDto}">
+				<div class="section_content">
+					<div class="section_content_box container">
+						<div class="hstack mt-5">
+							<div class="m-1">
+								<h3 class="mt-3 mb-3">회원가입</h3>
+							</div>
+						</div>
+						<div class="bible_read hstack border rounded-3">
+							<div class="mx-auto w-75 my-5">
+								<div class="mb-3">
+									<label th:for="email" class="form-label">이메일</label> <input
+										type="email" th:field="*{email}" class="form-control"
+										placeholder="이메일을 입력해주세요" />
+									<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+										class="fieldError">Incorrect Data</p>
+								</div>
+								<div class="mb-3">
+									<label th:for="password" class="form-label">비밀번호</label> <input
+										type="password" th:field="*{password}" class="form-control"
+										placeholder="비밀번호를 입력해주세요" />
+									<p th:if="${#fields.hasErrors('password')}"
+										th:errors="*{password}" class="fieldError">Incorrect Data</p>
+								</div>
+								<div class="mb-3">
+									<label th:for="nickname" class="form-label">닉네임</label> <input
+										type="text" th:field="*{nickname}" class="form-control"
+										placeholder="닉네임을 입력해주세요" />
+									<p th:if="${#fields.hasErrors('nickname')}"
+										th:errors="*{nickname}" class="fieldError">Incorrect Data</p>
+								</div>
+								<div class="hstack">
+									<button type="submit"
+										class="btn btn-outline-secondary ms-auto my-3">가입하기-></button>
+								</div>
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}">
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</section>
+	</div>
+</body>
+</html>

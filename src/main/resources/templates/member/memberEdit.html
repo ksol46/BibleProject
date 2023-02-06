@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<head>
+<meta charset="UTF-8">
+<title>Bible Project</title>
+<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+	<section>
+      <div class="section_content">
+        <div class="section_content_box container">
+          <div class="hstack mt-5">
+            <div class="m-1">
+              <h3 class="mt-3 mb-3">회원수정</h3>
+            </div>
+          </div>
+          <div class="bible_read hstack border rounded-3">
+            <div class="mx-auto w-75 my-5">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >이메일</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="이메일을 입력해주세요"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >비밀번호</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="비밀번호를 입력해주세요"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >닉네임</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="닉네임을 입력해주세요"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="hstack">
+            <button
+              type="button"
+              class="btn btn-outline-secondary ms-auto my-3"
+            >
+              수정하기->
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+</body>
+</html>

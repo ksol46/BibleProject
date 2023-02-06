@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Bible Project</title>
+</head>
+<body>
+	<div th:fragment="header">
+		<header class="mx-auto h-auto p-0">
+      <div class="d-flex justify-content-md-end m-1 p-1">
+        <a href="/members/login">
+        <button
+          type="button"
+          class="btn btn-outline-secondary justify-content-md-end m-2"
+          sec:authorize="isAnonymous()"
+        >
+          로그인
+        </button>
+        </a>
+        <a href="/members/logout">
+        <button
+          type="button"
+          class="btn btn-outline-secondary justify-content-md-end m-2"
+          sec:authorize="isAuthenticated()" 
+        >
+          로그아웃
+        </button>
+        </a>
+      </div>
+      <div class="container-fluid">
+        <nav class="navbar bg-white mx-auto w-100 pb-4">
+          <a class="navbar-brand mx-auto" href="/">
+            <img
+              src="/images/BIBLELOVER.png"
+              alt="BIBLELOVER.logo"
+              width="380"
+              height="55"
+              style="object-fit: cover"
+            />
+          </a>
+        </nav>
+      </div>
+      <!-- nav 태그 -->
+      <div class="nav_custom vstack">
+        <ul class="nav mx-auto my-auto">
+          <li class="nav-item mx-3 my-auto">
+            <a class="nav-link active" aria-current="page" href="/bible"
+              ><img src="/images/bible.png" /><span class="fw-bold"
+                >성경</span
+              ></a
+            >
+          </li>
+          <li class="nav-item dropdown mx-3 my-auto">
+            <a
+              class="nav-link dropdown-toggle dropdown_custom"
+              data-bs-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-expanded="false"
+              ><img src="/images/note.png" height="60px" /><span class="fw-bold"
+                >묵상노트</span
+              ></a
+            >
+            <ul class="dropdown-menu nav_color">
+              <li class="m-3">
+                <a class="dropdown-item !important nav_tap" href="#"
+                  ><span class="fw-bold">묵상하기</span></a
+                >
+              </li>
+              <hr>
+              <li class="m-3">
+                <a class="dropdown-item !important nav_tap" href="#"
+                  ><span class="fw-bold">묵상리스트</span></a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      </header>
+	</div>
+</body>
+</html>
