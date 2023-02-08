@@ -1,6 +1,5 @@
 package com.bibleProject.controller;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -30,13 +29,14 @@ public class PostController {
 	}
 	
 	//묵상하기 글쓰기
-	@PostMapping(value="/write/insert")
+	@PostMapping(value="/write")
 	public String PostInsert(@Valid PostWriteDto postWriteDto, BindingResult bindingResult,
-			Model model, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) {
+			Model model, @RequestParam("itemImgFile") MultipartFile itemImgFileList) {
 		
 		if(bindingResult.hasErrors()) {
 			return "post/write";
 		}
+		
 		return "redirect:/";
 	}
 

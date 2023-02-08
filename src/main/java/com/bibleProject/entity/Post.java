@@ -23,18 +23,10 @@ public class Post extends BaseEntity {
 	
 	private String title; // 게시글 제목
 	
-	private String contents; //게시글 내용
+	private String detail; //게시글 내용
 	
 	private String img_name; //이미지 이름
 	
 	private String img_url; //이미지 링크
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

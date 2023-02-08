@@ -38,7 +38,7 @@
 							data-bs-toggle="modal" data-bs-target="#exampleModal"
 							data-bs-whatever="@mdo">묵상하기-></button>
 					</div>
-					<form role="form" method="post" th:object="${postwrite}" enctype="multipart/form-data" >
+					<form role="form" action="/post/write" method="post" th:object="${postwrite}" enctype="multipart/form-data" >
 						<div class="modal fade" id="exampleModal" tabindex="-1"
 							aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -51,23 +51,22 @@
 									</div>
 									<div class="modal-body">
 										<div class="mb-3">
-											<label for="message-text" class="col-form-label">검색한
-												말씀</label>
-											<textarea th:object="${postwrite}" class="form-control"
-												id="message-text" style="height: 350px" ></textarea>
+											<label for="message-text" class="col-form-label">본문말씀</label>
+											<input th:field="${}" class="form-control"
+												id="message-text"></input>
 										</div>
 										<div class="mb-3">
 											<label for="recipient-name" class="col-form-label">구분</label>
 											<div class="hstack">
 												<div class="form-check me-3">
 													<input class="form-check-input" type="radio"
-														name="flexRadioDefault" id="flexRadioDefault1" /><label
+														name="category" id="flexRadioDefault1" value="${category}"/><label
 														class="form-check-label" for="flexRadioDefault1">
 														구약 </label>
 												</div>
 												<div class="form-check me-auto">
 													<input class="form-check-input" type="radio"
-														name="flexRadioDefault" id="flexRadioDefault2" checked />
+														name="category" id="flexRadioDefault2" value="${category.}" checked />
 													<label class="form-check-label" for="flexRadioDefault2">
 														신약 </label>
 												</div>
@@ -77,18 +76,18 @@
 										<div class="mb-3">
 											<label for="recipient-name" class="col-form-label">글제목</label>
 											<input type="text" class="form-control" id="recipient-name"
-												th:field="*{title}"/>
+												th:field="*{title}"/ name="title">
 										</div>
 										<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect Data</p>
 										<div class="mb-3">
 											<label for="message-text" class="col-form-label">나의묵상</label>
 											<textarea class="form-control" id="message-text"
-												th:field="*{contents}" style="height: 400px"></textarea>
+												th:field="*{contents}" style="height: 400px" name="contents"></textarea>
 										</div>
 										<p th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}" class="fieldError">Incorrect Data</p>
 										<div class="mb-3">
 											<label for="formFile" class="form-label">이미지 업로드</label><input
-												class="form-control" type="file" id="formFile"/>
+												class="form-control" type="file" id="formFile" name="itemImgFile"/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -100,6 +99,8 @@
 								</div>
 							</div>
 						</div>
+						<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}">
 					</form>
 				</div>
 			</div>
