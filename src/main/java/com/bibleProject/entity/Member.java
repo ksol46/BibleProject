@@ -9,7 +9,7 @@ import com.bibleProject.dto.MemberFormDto;
 import lombok.*;
 
 @Entity
-@Table(name="biblemember")
+@Table(name="member")
 @Getter
 @Setter
 @ToString
@@ -17,14 +17,14 @@ public class Member{
 	@Id
 	@Column(name="member_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long id; //회원식별자
 	
-	private String nickname;
+	private String nickname; //회원닉네임
 	
 	@Column(unique = true)
-	private String email;
+	private String email; //이메일 아이디
 	
-	private String password;
+	private String password; // 비밀번호
 
 	public static Member createMember (MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
