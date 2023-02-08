@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.bibleProject.dto.BibleDto;
-import com.bibleProject.entity.Bible2;
 import com.bibleProject.service.BibleService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ public class BibleController {
 	public String readBible(Model model) {
 		model.addAttribute("bibleDto", new BibleDto());
 		
-		Bible2.insertBible();
 		
 		return "bible/bibleView";
 	}

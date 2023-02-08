@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 public class Post extends BaseEntity {
+	
 	@Id
 	@Column(name="post_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

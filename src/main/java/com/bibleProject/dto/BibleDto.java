@@ -1,17 +1,14 @@
 package com.bibleProject.dto;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
-import org.modelmapper.ModelMapper;
-
-import com.bibleProject.entity.Bible;
-
 import lombok.*;
 
 @Getter
 @Setter
 public class BibleDto {
 	
-	private Long id; //성경 구절 코드
+	private Long id; //성경 식별 코드
+	
+	private String category; // 구, 신약 구분
 	
 	private String book; // 성경 책 이름
 	
@@ -21,11 +18,4 @@ public class BibleDto {
 	
 	private String contents; // 성경 구절
 	
-	//private static ModelMapper modelMapper = new ModelMapper();
-	
-	/*
-	public Bible insertBible() {
-		return modelMapper.map(this,Bible.class);
-	}
-	*/
 }

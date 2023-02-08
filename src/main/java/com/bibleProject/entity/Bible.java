@@ -12,7 +12,7 @@ import lombok.*;
 public class Bible {
 	@Id
 	@Column(name="bible_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //성경식별자
 	
 	@ManyToOne(fetch = FetchType.LAZY)
