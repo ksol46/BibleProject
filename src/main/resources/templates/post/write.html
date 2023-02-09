@@ -17,13 +17,14 @@
 							<h3 class="mt-3 mb-3">검색한 말씀</h3>
 						</div>
 						<div class="search_area ms-auto">
-							<form class="bibleSearch_frm hstack" method="post">
+							<form class="bibleSearch_frm hstack" method="get" action="/post/search">
 								<div class="input-group my-auto">
 									<input type="text" class="form-control"
 										placeholder="(ex : 창세기 1:1-7)"
 										aria-label="Recipient's username"
-										aria-describedby="button-addon2">
-									<button class="btn btn-outline-secondary" type="button"
+										aria-describedby="button-addon2"
+										name="searchQuery" id="searchQuery">
+									<button class="btn btn-outline-secondary" type="submit"
 										id="button-addon2">입력</button>
 								</div>
 							</form>
@@ -52,7 +53,7 @@
 									<div class="modal-body">
 										<div class="mb-3">
 											<label for="message-text" class="col-form-label">본문말씀</label>
-											<input th:field="${}" class="form-control"
+											<input th:field="*{book}" class="form-control"
 												id="message-text"></input>
 										</div>
 										<div class="mb-3">
@@ -60,13 +61,13 @@
 											<div class="hstack">
 												<div class="form-check me-3">
 													<input class="form-check-input" type="radio"
-														name="category" id="flexRadioDefault1" value="${category}"/><label
+														name="category" id="flexRadioDefault1" value="*{category}"/><label
 														class="form-check-label" for="flexRadioDefault1">
 														구약 </label>
 												</div>
 												<div class="form-check me-auto">
 													<input class="form-check-input" type="radio"
-														name="category" id="flexRadioDefault2" value="${category.}" checked />
+														name="category" id="flexRadioDefault2" value="*{category}" checked />
 													<label class="form-check-label" for="flexRadioDefault2">
 														신약 </label>
 												</div>

@@ -21,11 +21,11 @@ public class Bible {
 	
 	private String category; //구약 신약 분류
 	
-	private int book; // 성경 책 이름
+	private String book; // 성경 책 이름
 	
 	private int chapter; // 성경 장 수
 	
-	private String verse; // 성경 절 수
+	private int verse; // 성경 절 수
 	
 	private String contents; // 성경 구절
 	
