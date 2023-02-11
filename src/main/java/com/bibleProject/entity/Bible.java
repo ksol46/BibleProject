@@ -14,6 +14,9 @@ public class Bible {
 	@Column(name="bible_id")
 	private Long id; //성경식별자
 	
+	@Column(name="category")
+	private String category; //카테고리 (나중에 다시 하기.)
+	
 	@Column(name="book")
 	private String book; // 성경 책 이름
 	

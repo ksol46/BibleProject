@@ -13,7 +13,7 @@
 	<script th:inline="javascript">
 	function QTbtnclick(){
 		var bibleDtoList = [[${bibleDtoList}]];
-		var content = bibleDtoList[0].book + bibleDtoList[0].chapter + ":" + bibleDtoList[0].verse + " " + bibleDtoList[0].content;
+		var content = bibleDtoList[0].book + " " + bibleDtoList[0].chapter + " : " + bibleDtoList[0].verse + " " + bibleDtoList[0].content;
 		$("#bible_contents").val(content);
 	}
 	
@@ -87,7 +87,7 @@
 					<div th:each="bibleDto, status: ${bibleDtoList}"
 						class="bible_read vstack border rounded-3">
 						<div
-							th:text="${bibleDto.book} + ${bibleDto.chapter} + ':'+ ${bibleDto.verse} + ${bibleDto.content}"></div>
+							th:text="${bibleDto.book} + ' ' + ${bibleDto.chapter} + ' : ' + ${bibleDto.verse} + ' ' + ${bibleDto.content}"></div>
 					</div>
 					<div class="hstack">
 						<button type="button"

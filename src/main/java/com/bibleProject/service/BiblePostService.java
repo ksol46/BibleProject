@@ -60,13 +60,13 @@ public class BiblePostService {
 			return post.getId();
 		}
 
-		
+		/*
 	//게시글 라스트
 	public List<PostDto> postList(){
 		
 		
 		return postDtoList;
 	}
-		
+		*/
 }
 
