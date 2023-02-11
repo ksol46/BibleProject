@@ -12,22 +12,19 @@ import lombok.*;
 public class Bible {
 	@Id
 	@Column(name="bible_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //성경식별자
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "post_id")
-	private Post post;
-	
-	private String category; //구약 신약 분류
-	
+	@Column(name="book")
 	private String book; // 성경 책 이름
 	
+	@Column(name="chapter")
 	private int chapter; // 성경 장 수
 	
+	@Column(name="verse")
 	private int verse; // 성경 절 수
 	
-	private String contents; // 성경 구절
+	@Column(name="content")
+	private String content; // 성경 구절
 	
 	
 	

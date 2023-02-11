@@ -19,29 +19,12 @@
 					</div>
 					<div class="bible_read hstack border rounded-3">
 						<div class="mx-auto w-75 my-5">
-							<div class="my-3">
-								<div class="hstack">
-									<div class="form-check me-3">
-										<input class="form-check-input" type="radio"
-											name="flexRadioDefault" id="flexRadioDefault1" value="*{category}" />
-										<label class="form-check-label" for="flexRadioDefault1">
-											구약 </label>
-									</div>
-									<div class="form-check me-auto">
-										<input class="form-check-input" type="radio"
-											name="flexRadioDefault" id="flexRadioDefault2" value="*{category}" checked />
-										<label class="form-check-label" for="flexRadioDefault2">
-											신약 </label>
-									</div>
-								</div>
-							</div>
 							<div>
 								<form th:action="@{/post/board}" role="form" method="get" th:object="${post}">
 									<table class="table mt-5">
 									<thead>
 										<tr>
 											<th scope="col">글번호</th>
-											<th scope="col">본문말씀</th>
 											<th scope="col">글제목</th>
 											<th scope="col">작성날짜</th>
 										</tr>
@@ -49,7 +32,6 @@
 									<tbody>
 										<tr>
 											<th th:each="" scope="row">1</th>
-											<td>창 1:1-7</td>
 											<td>나의 첫 묵상</td>
 											<td>2023-02-02</td>
 										</tr>

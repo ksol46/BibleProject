@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.bibleProject.dto.BibleDto;
-import com.bibleProject.service.BibleService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,13 +12,11 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class BibleController {
-	//private final BibleService bibleService;
 	
 	//성경 읽기 화면을 보여줌.
 	@GetMapping(value = "/read")
 	public String readBible(Model model) {
 		model.addAttribute("bibleDto", new BibleDto());
-		
 		
 		return "bible/bibleView";
 	}

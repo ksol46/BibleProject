@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.bibleProject.entity.Bible;
 
 public interface BibleRepository extends JpaRepository <Bible, Long> {
-	List<Bible> findByBookAndChapterAndVerse (String book, Integer chapter, Integer verse, String contents);
+	List<Bible> findByBookAndChapterAndVerse (String book, Integer chapter, Integer verse);
 }

@@ -21,7 +21,7 @@ public class BibleDto {
 	
 	private int verse; // 성경 절 수
 	
-	private String contents; // 성경 구절
+	private String content; // 성경 구절
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	

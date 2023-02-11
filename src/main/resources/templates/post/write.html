@@ -4,8 +4,61 @@
 	layout:decorate="~{layouts/layout1}">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
 <title>Bible Project</title>
 <link th:href="@{/css/style.css}" rel="stylesheet">
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	function QTbtnclick(){
+		var bibleDtoList = [[${bibleDtoList}]];
+		var content = bibleDtoList[0].book + bibleDtoList[0].chapter + ":" + bibleDtoList[0].verse + " " + bibleDtoList[0].content;
+		$("#bible_contents").val(content);
+	}
+	
+	function post() {
+ 		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		
+		var url = "/post/write";
+		
+		var paramData = {
+			bible_contents: $("#bible_contents").val(),
+			title: $("#title").val(),
+			detail: $("#detail").val()
+		};
+		
+		var param = JSON.stringify(paramData); //문자열로 변경 
+		
+ 	$.ajax({
+		url : url,
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
+		type : "POST",
+		contentType : "application/json",
+		data : param,
+		dataType : "json",
+		cache : false,
+		success : function(result, status){
+			alert("묵상이 등록되었습니다.");
+			location.href = "/";
+		},
+		error: function(jqXHR, status, error){
+			if(jqXHR.status == '401'){
+				alert('로그인 후 이용하시오.');
+				location.href = 'members/login';
+			} else {
+				alert(jqXHR.responseText); 
+			}
+		}
+	})  
+	}
+	
+	
+	</script>
+</th:block>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -17,29 +70,32 @@
 							<h3 class="mt-3 mb-3">검색한 말씀</h3>
 						</div>
 						<div class="search_area ms-auto">
-							<form class="bibleSearch_frm hstack" method="get" action="/post/search">
+							<form class="bibleSearch_frm hstack" method="get"
+								action="/post/search">
 								<div class="input-group my-auto">
 									<input type="text" class="form-control"
-										placeholder="(ex : 창세기 1:1-7)"
-										aria-label="Recipient's username"
-										aria-describedby="button-addon2"
-										name="searchQuery" id="searchQuery">
+										placeholder="(ex : 창 1:1)" aria-label="Recipient's username"
+										aria-describedby="button-addon2" name="searchQuery"
+										id="searchQuery">
 									<button class="btn btn-outline-secondary" type="submit"
 										id="button-addon2">입력</button>
 								</div>
 							</form>
 						</div>
 					</div>
-					<div class="bible_read vstack border rounded-3">
-						<input type="text" class="m-auto p-5" />
+					<!-- 검색한 데이터 들어오는 곳 -->
+					<div th:each="bibleDto, status: ${bibleDtoList}"
+						class="bible_read vstack border rounded-3">
+						<div
+							th:text="${bibleDto.book} + ${bibleDto.chapter} + ':'+ ${bibleDto.verse} + ${bibleDto.content}"></div>
 					</div>
 					<div class="hstack">
 						<button type="button"
 							class="btn btn-outline-secondary ms-auto my-3"
 							data-bs-toggle="modal" data-bs-target="#exampleModal"
-							data-bs-whatever="@mdo">묵상하기-></button>
+							data-bs-whatever="@mdo" onclick="QTbtnclick()">묵상하기-></button>
 					</div>
-					<form role="form" action="/post/write" method="post" th:object="${postwrite}" enctype="multipart/form-data" >
+					<!-- 모달창 시작 -->
 						<div class="modal fade" id="exampleModal" tabindex="-1"
 							aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -49,60 +105,42 @@
 										</h1>
 										<button type="button" class="btn-close"
 											data-bs-dismiss="modal" aria-label="Close"></button>
+										<!-- 검색하지 않았을때 버튼 비활성화 여쭤보기 th:disabled=" ? :  " -->
 									</div>
+					<form role="form" method="post" enctype="multipart/form-data" th:object="${postwrite}">
 									<div class="modal-body">
 										<div class="mb-3">
 											<label for="message-text" class="col-form-label">본문말씀</label>
-											<input th:field="*{book}" class="form-control"
-												id="message-text"></input>
-										</div>
-										<div class="mb-3">
-											<label for="recipient-name" class="col-form-label">구분</label>
-											<div class="hstack">
-												<div class="form-check me-3">
-													<input class="form-check-input" type="radio"
-														name="category" id="flexRadioDefault1" value="*{category}"/><label
-														class="form-check-label" for="flexRadioDefault1">
-														구약 </label>
-												</div>
-												<div class="form-check me-auto">
-													<input class="form-check-input" type="radio"
-														name="category" id="flexRadioDefault2" value="*{category}" checked />
-													<label class="form-check-label" for="flexRadioDefault2">
-														신약 </label>
-												</div>
-											</div>
-											<p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="fieldError">Incorrect Data</p>
+											<input class="form-control" th:field="*{bible_contents}"
+												id="bible_contents"></input>
 										</div>
 										<div class="mb-3">
 											<label for="recipient-name" class="col-form-label">글제목</label>
-											<input type="text" class="form-control" id="recipient-name"
-												th:field="*{title}"/ name="title">
+											<input type="text" class="form-control" id="title"
+												th:field="*{title}">
 										</div>
-										<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="fieldError">Incorrect Data</p>
+										<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+											class="fieldError">Incorrect Data</p>
 										<div class="mb-3">
 											<label for="message-text" class="col-form-label">나의묵상</label>
-											<textarea class="form-control" id="message-text"
-												th:field="*{contents}" style="height: 400px" name="contents"></textarea>
+											<textarea class="form-control" id="detail"
+												th:field="*{detail}" style="height: 100px"></textarea>
 										</div>
-										<p th:if="${#fields.hasErrors('contents')}" th:errors="*{contents}" class="fieldError">Incorrect Data</p>
-										<div class="mb-3">
-											<label for="formFile" class="form-label">이미지 업로드</label><input
-												class="form-control" type="file" id="formFile" name="itemImgFile"/>
-										</div>
+										<p th:if="${#fields.hasErrors('detail')}"
+											th:errors="*{detail}" class="fieldError">Incorrect Data</p>
 									</div>
+					</form>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-outline-secondary"
 											data-bs-dismiss="modal">닫기</button>
-										<input type="submit"
-											class="btn btn-outline-secondary"/>
+										<input type="button" value="등록"
+											class="btn btn-outline-secondary" onclick="post()" />
 									</div>
 								</div>
 							</div>
 						</div>
 						<input type="hidden" th:name="${_csrf.parameterName}"
 							th:value="${_csrf.token}">
-					</form>
 				</div>
 			</div>
 		</section>

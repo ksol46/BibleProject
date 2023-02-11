@@ -19,14 +19,15 @@ public class Post extends BaseEntity {
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
-	private Long post_img_id; //게시글 이미지 식별자
-	
 	private String title; // 게시글 제목
 	
+	@Lob
 	private String detail; //게시글 내용
 	
-	private String img_name; //이미지 이름
+	@Lob
+	private String bible_contents;
+
 	
-	private String img_url; //이미지 링크
+	
 	
 }

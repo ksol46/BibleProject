@@ -68,8 +68,9 @@ public class SecurityConfig {
 		//페이지 접근에 대한 설정
 		http.authorizeHttpRequests()
 		.mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
-		.mvcMatchers("/", "/members/**", "/images/**").permitAll();
-		//.anyRequest().authenticated();
+		.mvcMatchers("/", "/members/**", "/images/**").permitAll()
+		.mvcMatchers("/post/**").hasRole("member")
+		.anyRequest().authenticated();
 		
 		//인증되지 않은 사용자가 리소스에 접근했을때 설정
 		http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
