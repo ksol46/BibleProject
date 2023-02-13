@@ -5,15 +5,19 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import com.bibleProject.dto.BibleDto;
 import com.bibleProject.dto.PostDto;
 import com.bibleProject.dto.PostFormDto;
 import com.bibleProject.entity.Bible;
+import com.bibleProject.entity.Member;
 import com.bibleProject.entity.Post;
 import com.bibleProject.repository.BibleRepository;
+import com.bibleProject.repository.MemberRepository;
 import com.bibleProject.repository.PostRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BiblePostService {
 
+	private final MemberRepository memberRepository;
 	private final BibleRepository bibleRepository;
 	private final PostRepository postRepository;
 
@@ -38,6 +43,8 @@ public class BiblePostService {
 		String[] sixth = fifth.split(":");
 		Integer chapter = Integer.parseInt(sixth[0]);
 		Integer verse = Integer.parseInt(sixth[1]);
+		
+		System.out.println(searchQuery);
 
 		List<Bible> bibleList = bibleRepository.findByBookAndChapterAndVerse(book, chapter, verse);
 		List<BibleDto> bibleDtoList = new ArrayList<>();
@@ -55,6 +62,9 @@ public class BiblePostService {
 	// 게시글 등록
 	public Long savePost(PostFormDto postFormDto) throws Exception {
 		Post post = postFormDto.createPost();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		Member member = memberRepository.findByEmail(email);
+		post.setMember(member);
 		postRepository.save(post);
 		return post.getId();
 	}
@@ -75,8 +85,7 @@ public class BiblePostService {
 
 	// 게시글 상세보기
 	public PostFormDto getPostFormDto(Long post_id) {
-		Post post = postRepository.findById(post_id)
-				.orElseThrow(EntityNotFoundException::new);
+		Post post = postRepository.findById(post_id).orElseThrow(EntityNotFoundException::new);
 
 		PostFormDto postFormDto = PostFormDto.of(post);
 
@@ -87,12 +96,31 @@ public class BiblePostService {
 	// 게시글 수정
 	public Long updatePostFormDto(PostFormDto postFormDto) {
 		System.out.println(postFormDto.getId());
-		Post post = postRepository.findById(postFormDto.getId())
-				.orElseThrow(EntityNotFoundException::new);
-		
+		Post post = postRepository.findById(postFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+
 		post.updatePost(postFormDto);
-		
+
 		return post.getId();
+	}
+
+	// 로그인한 사용자와 게시글을 등록한 사용자와 같은지 검사
+	@Transactional(readOnly = true)
+	public boolean validatePost(Long post_id, String email) {
+		Member curMember = memberRepository.findByEmail(email);
+		Post post = postRepository.findById(post_id).orElseThrow(EntityNotFoundException::new);
+		Member savedMember = post.getMember();
+		
+		if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail() )) {
+			return false;
+		}
+		return true;
+	}
+	
+	//주문 삭제
+	public void deletePost(Long post_id) {
+		Post post = postRepository.findById(post_id).orElseThrow(EntityNotFoundException::new);
+		
+		postRepository.delete(post);
 	}
 
 }

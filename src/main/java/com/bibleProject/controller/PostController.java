@@ -1,5 +1,6 @@
 package com.bibleProject.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,5 +105,15 @@ public class PostController {
 		}
 		
 		return "redirect:/post/board";
+	}
+	
+	//게시글 삭제
+	@DeleteMapping("/view/{post_id}/delete")
+	public @ResponseBody ResponseEntity deletePost(@PathVariable("post_id") Long post_id, Principal principal) {
+		if(!biblePostService.validatePost(post_id, principal.getName())) {
+			return new ResponseEntity<String>("주문 삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
+		}
+		biblePostService.deletePost(post_id);
+		return new ResponseEntity<Long>(post_id, HttpStatus.OK);
 	}
 }
