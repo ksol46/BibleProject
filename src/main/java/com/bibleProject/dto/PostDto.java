@@ -1,8 +1,7 @@
 package com.bibleProject.dto;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.time.format.DateTimeFormatter;
 
 import com.bibleProject.entity.Post;
 
@@ -11,20 +10,21 @@ import lombok.*;
 @Getter
 @Setter
 public class PostDto {
-
-	public PostDto(Post post) {
+	
+	public PostDto (Post post) {
 		this.post_id = post.getId();
+		this.bible_contents = post.getBible_contents();
 		this.title = post.getTitle();
-		this.regDate = post.getReg_time();
+		this.regDate = post.getReg_time().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 
 	private Long post_id; // 게시글 아이디
 
 	private String title; // 게시글 제목
 
-	private LocalDateTime regDate; // 게시글 작성 날짜
+	private String regDate; // 게시글 작성 날짜
 	
-	private List<PostFormDto> postFormDtoList = new ArrayList<>();
+	private String bible_contents;
 
 	}
 

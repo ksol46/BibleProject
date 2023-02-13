@@ -9,101 +9,54 @@
 <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
-<div layout:fragment="contenet">
-<section>
-      <div class="section_content my-5">
-        <div class="section_content_box container">
-          <div class="hstack mt-5">
-            <div class="m-1">
-              <h3 class="mt-3 mb-3">묵상하기</h3>
-            </div>
-          </div>
-          <div class="bible_read hstack border rounded-3">
-            <div class="mx-auto w-75 my-5">
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label"
-                  >검색한 말씀</label
-                >
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  style="height: 300px"
-                ></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label"
-                  >구분</label
-                >
-                <div class="hstack">
-                  <div class="form-check me-3">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault1"
-                    />
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      구약
-                    </label>
-                  </div>
-                  <div class="form-check me-auto">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault2"
-                      checked
-                    />
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      신약
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label"
-                  >글제목</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="name@example.com"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label"
-                  >나의묵상</label
-                >
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                ></textarea>
-              </div>
-              <div class="mb-3">
-                     <label for="exampleFormControlTextarea1" class="form-label"
-                  >이미지</label
-                >
-                      <div><img src="/images/pray.jpg" alt="이미지"></img></div>
-                    </div>
-            </div>
-          </div>
-          <div class="hstack">
-            <button type="button" class="btn btn-outline-secondary mx-auto my-3">
-              수정하기->
-            </button>
-            <button type="button" class="btn btn-outline-secondary mx-auto my-3">
-              목록보기->
-            </button>
-            <button type="button" class="btn btn-outline-secondary mx-auto my-3">
-              삭제하기->
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-</div>
+	<div layout:fragment="content">
+		<section>
+			<div class="section_content my-5">
+				<form class="section_content_box container" th:object="${postFormDto}" method="post">
+					<div class="hstack mt-5">
+						<div class="m-1">
+							<h3 class="mt-3 mb-3">묵상하기</h3>
+						</div>
+					</div>
+					<div class="bible_read hstack border rounded-3">
+						<div class="mx-auto w-75 my-5">
+							<input type="hidden" th:field="*{id}" />
+							<div class="mb-3">
+								<label for="message-text" class="col-form-label">본문말씀</label> <input
+									class="form-control" th:field="*{bible_contents}"
+									id="bible_contents" readonly></input>
+							</div>
+							<div class="mb-3">
+								<label for="exampleFormControlInput1" class="form-label">글제목</label>
+								<input type="text" class="form-control"
+									id="exampleFormControlInput1" th:field="*{title}"/>
+							</div>
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label">나의묵상</label>
+								<textarea class="form-control" id="exampleFormControlTextarea1"
+									rows="3" th:field="*{detail}"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="hstack">
+						<div class="mx-auto my-3">
+						<button type="submit" th:formaction="@{'/'+'post/view/' + ${postFormDto.id}}"
+							class="btn btn-outline-secondary">수정하기-></button>
+						</div>
+						<div class="mx-auto my-3">
+						<button type="button"
+							class="btn btn-outline-secondary" onClick="location.href='/post/board'">목록보기-></button>
+						</div>
+						<div class="mx-auto my-3">
+						<button type="button"
+							class="btn btn-outline-secondary">삭제하기-></button>
+						</div>
+					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}">
+				</form>
+			</div>
+		</section>
+	</div>
 </body>
 </html>

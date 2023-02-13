@@ -69,7 +69,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests()
 		.mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
 		.mvcMatchers("/", "/members/**", "/images/**").permitAll()
-		.mvcMatchers("/post/**", "/bible/**").hasRole("member")
+		.mvcMatchers("/post/**","/bible/**").hasRole("member")
 		.anyRequest().authenticated();
 		
 		//인증되지 않은 사용자가 리소스에 접근했을때 설정

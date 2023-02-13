@@ -1,6 +1,9 @@
 package com.bibleProject.entity;
 
 import javax.persistence.*;
+
+import com.bibleProject.dto.PostFormDto;
+
 import lombok.*;
 
 @Entity
@@ -25,9 +28,13 @@ public class Post extends BaseEntity {
 	private String detail; //게시글 내용
 	
 	@Lob
-	private String bible_contents;
+	private String bible_contents; //본문말씀
 
-	
+	public void updatePost(PostFormDto postFormDto) {
+		this.bible_contents = postFormDto.getBible_contents();
+		this.title = postFormDto.getTitle();
+		this.detail = postFormDto.getDetail();
+	}
 	
 	
 }

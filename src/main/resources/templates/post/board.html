@@ -18,119 +18,29 @@
 						</div>
 					</div>
 					<div class="bible_read hstack border rounded-3">
-						<div class="mx-auto w-75 my-5">
+						<div class="mx-auto my-5 p-5">
 							<div>
-								<form th:action="@{/post/board}" role="form" method="get" th:object="${post}">
-									<table class="table mt-5">
+								<table class="table mt-5">
 									<thead>
 										<tr>
 											<th scope="col">글번호</th>
+											<th scope="col">본문말씀</th>
 											<th scope="col">글제목</th>
 											<th scope="col">작성날짜</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th th:each="" scope="row">1</th>
-											<td>나의 첫 묵상</td>
-											<td>2023-02-02</td>
+										<tr th:each="post, status: ${postList}">
+											<th th:text="${status.index+1}" scope="row"></th>
+											<td th:text="${post.bible_contents}" style="width:50%;"></td>
+											<td><a th:href="'/post/view/'+${post.post_id}"
+												th:text="${post.title}"></a></td>
+											<td th:text="${post.regDate}"></td>
 										</tr>
 									</tbody>
 								</table>
-								</form>
 							</div>
 						</div>
-					</div>
-					<div class="hstack my-2">
-						<div class="ms-auto">
-							<nav aria-label="Page navigation example m-auto my-3">
-								<ul class="pagination my-auto">
-									<li class="page-item disabled"><a class="page-link">Previous</a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">Next</a>
-									</li>
-								</ul>
-							</nav>
-						</div>
-						<div class="ms-auto">
-							<button type="button" class="btn btn-outline-secondary my-3"
-								data-bs-toggle="modal" data-bs-target="#exampleModal"
-								data-bs-whatever="@mdo">묵상하기-></button>
-						</div>
-					</div>
-					<div class="modal fade" id="exampleModal" tabindex="-1"
-						aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-scrollable modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h1 class="modal-title fs-5" id="exampleModalLabel">묵상하기</h1>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-									<form>
-										<div class="mb-3">
-											<label for="message-text" class="col-form-label">검색한
-												말씀</label>
-											<textarea class="form-control" id="message-text"
-												style="height: 350px"></textarea>
-										</div>
-										<div class="mb-3">
-											<label for="recipient-name" class="col-form-label">구분</label>
-											<div class="hstack">
-												<div class="form-check me-3">
-													<input class="form-check-input" type="radio"
-														name="flexRadioDefault" id="flexRadioDefault1" />
-													<label class="form-check-label" for="flexRadioDefault1">
-														구약 </label>
-												</div>
-												<div class="form-check me-auto">
-													<input class="form-check-input" type="radio"
-														name="flexRadioDefault" id="flexRadioDefault2" checked />
-													<label class="form-check-label" for="flexRadioDefault2">
-														신약 </label>
-												</div>
-											</div>
-										</div>
-										<div class="mb-3">
-											<label for="recipient-name" class="col-form-label">글제목</label>
-											<input type="text" class="form-control" id="recipient-name" />
-										</div>
-										<div class="mb-3">
-											<label for="message-text" class="col-form-label">나의묵상</label>
-											<textarea class="form-control" id="message-text"
-												style="height: 400px"></textarea>
-										</div>
-										<div class="mb-3">
-											<label for="formFile" class="form-label">이미지
-												업로드</label> <input class="form-control" type="file" id="formFile" />
-										</div>
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-secondary"
-										data-bs-dismiss="modal">닫기</button>
-									<button action="" type="button"
-										class="btn btn-outline-secondary">
-										등록하기-></button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 검색창 -->
-					<div class="search_area mt-3 mb-5">
-						<form class="bibleSearch_frm hstack w-25 mx-auto" method="post">
-							<div class="input-group my-auto">
-								<input type="text" class="form-control"
-									placeholder="검색어를 입력해주세요" aria-label="Recipient's username"
-									aria-describedby="button-addon2" />
-								<button class="btn btn-outline-secondary" type="button"
-									id="button-addon2">입력</button>
-							</div>
-						</form>
 					</div>
 				</div>
 			</div>

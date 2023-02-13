@@ -33,5 +33,9 @@ public class PostFormDto { // create 모달 폼
 		return modelMapper.map(this, Post.class);
 	}
 	
+	public static PostFormDto of (Post post) {
+		return modelMapper.map(post, PostFormDto.class);
+	}
+	
 
 }
