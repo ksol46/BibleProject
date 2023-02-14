@@ -31,22 +31,45 @@ public class BiblePostService {
 	private final BibleRepository bibleRepository;
 	private final PostRepository postRepository;
 
-	// 검색
+	// 말씀 검색
 	@Transactional(readOnly = true)
 	public List<BibleDto> findingBible(String searchQuery) {
 
 		// 파싱하기
-		String first = searchQuery.replaceFirst(" ", "/");
-		String[] second = first.split("/");
-		String book = second[0];
-		String fifth = second[1];
-		String[] sixth = fifth.split(":");
-		Integer chapter = Integer.parseInt(sixth[0]);
-		Integer verse = Integer.parseInt(sixth[1]);
-		
-		System.out.println(searchQuery);
+		boolean shortcontents = searchQuery.matches("^([ㄱ-ㅎ|가-힣]){1} \\d{1,3}[:]\\d{1,3}$");
+		boolean longcontents = searchQuery.matches("^([ㄱ-ㅎ|가-힣]){1} \\d{1,3}[:]\\d{1,3}[-]\\d{1,3}$");
 
-		List<Bible> bibleList = bibleRepository.findByBookAndChapterAndVerse(book, chapter, verse);
+		List<Bible> bibleList = new ArrayList<>();
+
+		if (shortcontents == true) {
+			String first = searchQuery.replaceFirst(" ", "/");
+			String[] second = first.split("/");
+			String book = second[0];
+			String fifth = second[1];
+			String[] sixth = fifth.split(":");
+			Integer chapter = Integer.parseInt(sixth[0]);
+			Integer verse = Integer.parseInt(sixth[1]);
+
+			bibleList = bibleRepository.findByBookAndChapterAndVerse(book, chapter, verse);
+
+		} else if (longcontents == true) { // 시/139:10-20
+			String first = searchQuery.replaceFirst(" ", "/");
+			String[] second = first.split("/");
+			String book = second[0];
+			String fifth = second[1];
+			String[] sixth = fifth.split(":");
+			Integer chapter = Integer.parseInt(sixth[0]);
+			String seventh = sixth[1];
+			String[] eight = seventh.split("-");
+			Integer verse1 = Integer.parseInt(eight[0]);
+			Integer verse2 = Integer.parseInt(eight[1]);
+
+			bibleList = bibleRepository.findByBookAndChapterAndVerseBetween(book, chapter, verse1, verse2);
+			
+		} else {
+			
+		}
+
 		List<BibleDto> bibleDtoList = new ArrayList<>();
 
 		// 엔티티 객체를 dto객체로 변환
@@ -109,17 +132,17 @@ public class BiblePostService {
 		Member curMember = memberRepository.findByEmail(email);
 		Post post = postRepository.findById(post_id).orElseThrow(EntityNotFoundException::new);
 		Member savedMember = post.getMember();
-		
-		if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail() )) {
+
+		if (!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
 			return false;
 		}
 		return true;
 	}
-	
-	//주문 삭제
+
+	// 주문 삭제
 	public void deletePost(Long post_id) {
 		Post post = postRepository.findById(post_id).orElseThrow(EntityNotFoundException::new);
-		
+
 		postRepository.delete(post);
 	}
 

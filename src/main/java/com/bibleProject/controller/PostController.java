@@ -47,7 +47,7 @@ public class PostController {
 
 		List<BibleDto> bibleDtoList = biblePostService.findingBible(searchQuery);
 		model.addAttribute("bibleDtoList", bibleDtoList);
-
+		System.out.println("bibleDtoList: "+bibleDtoList);
 		return "post/write";
 	}
 

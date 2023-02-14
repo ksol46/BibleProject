@@ -69,9 +69,10 @@
 						<div class="mx-auto w-75 my-5">
 							<input type="hidden" th:field="*{id}" />
 							<div class="mb-3">
-								<label for="message-text" class="col-form-label">본문말씀</label> <input
+								<label for="message-text" class="col-form-label">본문말씀</label>
+								<textarea
 									class="form-control" th:field="*{bible_contents}"
-									id="bible_contents" readonly></input>
+									id="bible_contents" readonly></textarea>
 							</div>
 							<div class="mb-3">
 								<label for="exampleFormControlInput1" class="form-label">글제목</label>
