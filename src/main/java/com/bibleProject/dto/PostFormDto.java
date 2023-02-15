@@ -27,6 +27,8 @@ public class PostFormDto { // create 모달 폼
 	
 	private String bible_contents;
 	
+	private String contents_title;
+	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
 	public Post createPost() {

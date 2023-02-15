@@ -24,7 +24,10 @@ public class PostDto {
 
 	private String regDate; // 게시글 작성 날짜
 	
+	private String contents_title;
+	
 	private String bible_contents;
+	
 
 	}
 

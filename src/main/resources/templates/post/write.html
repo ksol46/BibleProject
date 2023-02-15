@@ -7,10 +7,16 @@
 <meta name="_csrf" th:content="${_csrf.token}">
 <meta name="_csrf_header" th:content="${_csrf.headerName}">
 <title>Bible Project</title>
+<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
 <link th:href="@{/css/style.css}" rel="stylesheet">
 <!-- 각 페이지의 스크립트가 작성될 위치 -->
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
+	
+	window.onload = function() {
+		const textarea = document.querySelector("textarea");
+		textarea.style.height = textarea.scrollHeight + "px";
+	}
 	
 	function QTbtnclick(){
   
@@ -24,8 +30,7 @@
 		      }
 		      
 		   }
-		
-	
+
 	function post() {
  		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
@@ -113,14 +118,14 @@
 									<button type="button" class="btn-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
 								</div>
-								<form role="form" method="post" enctype="multipart/form-data"
+								<form role="form" method="post" enctype="multipart/form-data"`
 									th:object="${postwrite}">
 									<div class="modal-body">
 										<div class="mb-3">
 											<label for="message-text" class="col-form-label">묵상할
 												말씀</label>
-											<textarea class="form-control" style=""
-												th:field="*{bible_contents}" id="bible_contents"></textarea>
+											<textarea class="form-control" th:field="*{bible_contents}"
+											id="bible_contents" style="background: #F4F4F2; overflow:hidden; resize:none;"></textarea>
 										</div>
 										<div class="mb-3">
 											<label for="recipient-name" class="col-form-label">글제목</label>

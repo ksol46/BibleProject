@@ -12,6 +12,12 @@
 </head>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
+	
+		window.onload = function() {
+			const textarea = document.querySelector("textarea");
+			textarea.style.height = textarea.scrollHeight + "px";
+		}
+
 		function deletePost(post_id) {
 			const deleteConf = confirm("삭제하시겠습니까?");
 
@@ -23,7 +29,7 @@
 			var paramData = {
 				itemId : $("#post_id").val()
 			};
-			
+
 			var param = JSON.stringify(paramData);
 
 			$.ajax({
@@ -50,7 +56,7 @@
 					}
 				}
 			});
-			
+
 		}
 	</script>
 </th:block>
@@ -69,10 +75,9 @@
 						<div class="mx-auto w-75 my-5">
 							<input type="hidden" th:field="*{id}" />
 							<div class="mb-3">
-								<label for="message-text" class="col-form-label">본문말씀</label>
-								<textarea
-									class="form-control" th:field="*{bible_contents}"
-									id="bible_contents" readonly></textarea>
+								<label for="message-text" class="col-form-label">묵상할말씀</label>
+								<textarea class="form-control" th:field="*{bible_contents}"
+									id="bible_contents" style="background: #F4F4F2; resize:none; overflow:hidden;"></textarea>
 							</div>
 							<div class="mb-3">
 								<label for="exampleFormControlInput1" class="form-label">글제목</label>
