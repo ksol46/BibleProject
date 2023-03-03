@@ -100,7 +100,7 @@ public class PostController {
 			biblePostService.updatePostFormDto(postFormDto);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage", "상품수정 중 에러가 발생하였습니다.");
+			model.addAttribute("errorMessage", "게시글수정 중 에러가 발생하였습니다.");
 			return "post/view";
 		}
 		

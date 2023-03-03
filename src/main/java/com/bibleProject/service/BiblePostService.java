@@ -139,7 +139,7 @@ public class BiblePostService {
 		return true;
 	}
 
-	// 주문 삭제
+	// 게시글 삭제
 	public void deletePost(Long post_id) {
 		Post post = postRepository.findById(post_id).orElseThrow(EntityNotFoundException::new);
 
